@@ -1,5 +1,4 @@
-// src/context/AuthContext.jsx
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
@@ -17,7 +16,20 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
   };
+
+  // Sync user state with localStorage changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedUser = localStorage.getItem("user");
+      setUser(savedUser ? JSON.parse(savedUser) : null);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>

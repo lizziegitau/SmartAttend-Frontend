@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 import Snackbar from '../../components/snackbar'
+import { useAuth } from '../../context/AuthContext'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -12,6 +13,7 @@ function Login() {
   const [error, setError] = useState('')
   const [snackbar, setSnackbar] = useState(null)
   const navigate = useNavigate()
+  const { login: loginUser } = useAuth();
 
   const showSnackbar = (message, type = 'success') => {
     setSnackbar({ message, type })
@@ -43,6 +45,8 @@ function Login() {
         localStorage.setItem('token', data.token)
         localStorage.setItem('user', JSON.stringify(data.user))
         localStorage.setItem('role', role)
+
+        loginUser(data.user)
 
         showSnackbar('Welcome back! Logged in successfully', 'success')
         
@@ -89,6 +93,8 @@ function Login() {
         localStorage.setItem('token', data.token)
         localStorage.setItem('user', JSON.stringify(data.user))
         localStorage.setItem('role', role)
+
+        loginUser(data.user)
 
         showSnackbar(`Welcome back ${decoded.name}!`, 'success')
         
