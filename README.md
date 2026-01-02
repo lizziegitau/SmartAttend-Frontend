@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# AI-Enabled Attendance System (SmartAttend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An AI-powered attendance and notification platform designed to enhance child safety by automatically detecting a child’s arrival using facial recognition and notifying parents in real time.
 
-## Available Scripts
+This project is developed as part of the **Artificial Intelligence Programming (AIP)** course at the **University of Nairobi**.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📌 Project Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Ensuring the safety of school-going children after school hours remains a major concern for parents and guardians. Traditional methods of confirming a child’s safe arrival rely heavily on manual communication, which is often unreliable and prone to delays or human error.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The **AI-Enabled Attendance System (SmartAttend)** proposes an intelligent solution that leverages **computer vision and machine learning** to:
 
-### `npm test`
+- Detect and recognize a child’s face using a camera
+- Verify identity against registered facial data
+- Record attendance automatically
+- Send instant notifications to parents via email
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🎯 Key Objectives
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Provide **real-time notifications** to parents upon a child’s safe arrival
+- Enhance **child safety** through automated identity verification
+- Reduce dependence on manual reporting
+- Improve trust and communication between parents, schools, and transport providers
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 👥 Users & Roles
 
-### `npm run eject`
+- **Parents/Guardians** – Receive notifications and monitor attendance
+- **School Administrators** – Manage students, registrations, and records
+- **System Administrators/Developers** – Maintain and enhance the system
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🧠 Technologies Used
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- React (Create React App)
+- HTML, CSS, JavaScript
+- React Router
+- Google OAuth (Google Sign-In)
 
-## Learn More
+### Backend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Node.js
+- Express.js
+- JSON Web Tokens (JWT)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Machine Learning & AI
 
-### Code Splitting
+- Convolutional Neural Networks (CNN)
+- Python
+- OpenCV
+- NumPy
+- Scikit-learn
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Database
 
-### Analyzing the Bundle Size
+- MySQL
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Notifications & Authentication
 
-### Making a Progressive Web App
+- Nodemailer (Email notifications)
+- Google OAuth 2.0
+- JWT-based authentication
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Development Tools
 
-### Advanced Configuration
+- Visual Studio Code
+- Git & GitHub
+- Postman (API testing)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 🧩 System Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Facial recognition-based attendance
+- Role-based authentication (Parent & Admin)
+- Secure login and signup (Email & Google OAuth)
+- Automated email notifications
+- Modular and scalable system architecture
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🚀 Getting Started (Frontend)
+
+This project frontend was bootstrapped with **Create React App**.
+
+### Prerequisites
+
+- Node.js (v16 or higher recommended)
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/lizziegitau/SmartAttend.git
+cd frontend
+npm install
+
+### Run the Application
+npm start
+```
