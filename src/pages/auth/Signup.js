@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
-import Snackbar from '../components/snackbar'
+import Snackbar from '../../components/snackbar'
 
 function Signup() {
   const [name, setName] = useState('')
@@ -33,8 +33,6 @@ function Signup() {
     console.log('Signup payload:', payload)
 
     try {
-      // TODO: Connect to backend API when ready
-      /*
       const response = await fetch('http://localhost:5000/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -51,33 +49,18 @@ function Signup() {
         showSnackbar(`Welcome ${name}! Account created successfully`, 'success')
         
         setTimeout(() => {
-          navigate(role === 'parent' ? '/parent-dashboard' : '/admin-dashboard')
+          navigate(role === 'parent' ? '/parent' : '/admin')
         }, 1500)
       } else {
         setError(data.message || 'Signup failed. Please try again.')
         showSnackbar(data.message || 'Signup failed. Please try again.', 'error')
       }
-      */
-
-      // TEMPORARY: Simulate successful signup for testing
-      setTimeout(() => {
-        localStorage.setItem('token', 'mock_token_' + Date.now())
-        localStorage.setItem('user', JSON.stringify({ name, email, role }))
-        localStorage.setItem('role', role)
-
-        showSnackbar(`Welcome ${name}! Account created successfully`, 'success')
-        
-        setTimeout(() => {
-          navigate(role === 'parent' ? '/parent-dashboard' : '/admin-dashboard')
-        }, 1500)
-        
-        setLoading(false)
-      }, 1000)
 
     } catch (err) {
       console.error('Signup error:', err)
       setError('Network error. Please check your connection and try again.')
       showSnackbar('Network error. Please check your connection.', 'error')
+    } finally {
       setLoading(false)
     }
   }
@@ -96,8 +79,6 @@ function Signup() {
       
       console.log('Sending to backend:', payload)
       
-      // TODO: Call your backend API when ready
-      /*
       const response = await fetch('http://localhost:5000/api/auth/google-signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -119,22 +100,6 @@ function Signup() {
       } else {
         showSnackbar(data.message || 'Google signup failed', 'error')
       }
-      */
-
-      // TEMPORARY: Simulate successful Google signup for testing
-      localStorage.setItem('token', 'google_mock_token_' + Date.now())
-      localStorage.setItem('user', JSON.stringify({ 
-        name: decoded.name, 
-        email: decoded.email, 
-        role: role 
-      }))
-      localStorage.setItem('role', role)
-
-      showSnackbar(`Welcome ${decoded.name}! Account created successfully`, 'success')
-      
-      setTimeout(() => {
-        navigate(role === 'parent' ? '/parent-dashboard' : '/admin-dashboard')
-      }, 1500)
       
     } catch (error) {
       console.error('Google signup error:', error)
@@ -158,7 +123,7 @@ function Signup() {
             Join SmartAttend Intelligent Platform
           </p>
 
-          <div className="role-selector">
+          <div className="tab-selector">
             <button
               className={`tab-signup ${role === 'parent' ? 'active' : ''}`}
               onClick={() => setRole('parent')}
@@ -205,8 +170,8 @@ function Signup() {
           )}
 
           <form onSubmit={handleSubmit}>
-            <div className="input-group">
-              <label>Full Name</label>
+            <div className="auth-input-group">
+              <label className="auth-input-label" for="name">Full Name</label>
               <input
                 type="text"
                 placeholder="Your full name"
@@ -214,11 +179,12 @@ function Signup() {
                 onChange={(e) => setName(e.target.value)}
                 required
                 disabled={loading}
+                id="name"
               />
             </div>
 
-            <div className="input-group">
-              <label>Email Address</label>
+            <div className="auth-input-group">
+              <label className="auth-input-label" for="email">Email Address</label>
               <input
                 type="email"
                 placeholder="you@organization.com"
@@ -226,11 +192,12 @@ function Signup() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
+                id="email"
               />
             </div>
 
-            <div className="input-group">
-              <label>Password</label>
+            <div className="auth-input-group">
+              <label className="auth-input-label" for="password">Password</label>
               <input
                 type="password"
                 placeholder="Create secure password"
@@ -239,6 +206,7 @@ function Signup() {
                 required
                 minLength="6"
                 disabled={loading}
+                id="password"
               />
             </div>
 

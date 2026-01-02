@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
-import Snackbar from '../components/snackbar'
+import Snackbar from '../../components/snackbar'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -31,8 +31,6 @@ function Login() {
     console.log('Login payload:', payload)
 
     try {
-      // TODO: Connect to backend API when ready
-      /*
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -49,33 +47,18 @@ function Login() {
         showSnackbar('Welcome back! Logged in successfully', 'success')
         
         setTimeout(() => {
-          navigate(role === 'parent' ? '/parent-dashboard' : '/admin-dashboard')
+          navigate(role === 'parent' ? '/parent' : '/admin')
         }, 1500)
       } else {
         setError(data.message || 'Login failed. Please check your credentials.')
         showSnackbar(data.message || 'Login failed. Please check your credentials.', 'error')
       }
-      */
-
-      // TEMPORARY: Simulate successful login for testing
-      setTimeout(() => {
-        localStorage.setItem('token', 'mock_login_token_' + Date.now())
-        localStorage.setItem('user', JSON.stringify({ email, role }))
-        localStorage.setItem('role', role)
-
-        showSnackbar('Welcome back! Logged in successfully', 'success')
-        
-        setTimeout(() => {
-          navigate(role === 'parent' ? '/parent-dashboard' : '/admin-dashboard')
-        }, 1500)
-        
-        setLoading(false)
-      }, 1000)
 
     } catch (err) {
       console.error('Login error:', err)
       setError('Network error. Please check your connection and try again.')
       showSnackbar('Network error. Please check your connection.', 'error')
+    } finally {
       setLoading(false)
     }
   }
@@ -94,8 +77,6 @@ function Login() {
       
       console.log('Sending to backend:', payload)
       
-      // TODO: Call your backend API when ready
-      /*
       const response = await fetch('http://localhost:5000/api/auth/google-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -112,27 +93,11 @@ function Login() {
         showSnackbar(`Welcome back ${decoded.name}!`, 'success')
         
         setTimeout(() => {
-          navigate(role === 'parent' ? '/parent-dashboard' : '/admin-dashboard')
+          navigate(role === 'parent' ? '/parent' : '/admin')
         }, 1500)
       } else {
         showSnackbar(data.message || 'Google login failed', 'error')
       }
-      */
-
-      // TEMPORARY: Simulate successful Google login for testing
-      localStorage.setItem('token', 'google_login_token_' + Date.now())
-      localStorage.setItem('user', JSON.stringify({ 
-        name: decoded.name, 
-        email: decoded.email, 
-        role: role 
-      }))
-      localStorage.setItem('role', role)
-
-      showSnackbar(`Welcome back ${decoded.name}!`, 'success')
-
-      setTimeout(() => {
-        navigate(role === 'parent' ? '/parent-dashboard' : '/admin-dashboard')
-      }, 1500)
       
     } catch (error) {
       console.error('Google login error:', error)
@@ -156,7 +121,7 @@ function Login() {
             AI-Powered Attendance & Identity System
           </p>
 
-          <div className="role-selector">
+          <div className="tab-selector">
             <button
               className={`tab ${role === 'parent' ? 'active' : ''}`}
               onClick={() => setRole('parent')}
@@ -187,8 +152,8 @@ function Login() {
           )}
 
           <form onSubmit={handleSubmit}>
-            <div className="input-group">
-              <label>Email Address</label>
+            <div className="login-input-group">
+              <label className="input-label" for="email">Email Address</label>
               <input
                 type="email"
                 placeholder="you@organization.com"
@@ -196,11 +161,12 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
+                id="email"
               />
             </div>
 
-            <div className="input-group">
-              <label>Password</label>
+            <div className="login-input-group">
+              <label className="input-label" for="password">Password</label>
               <input
                 type="password"
                 placeholder="••••••••"
@@ -208,6 +174,7 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
+                id="password"
               />
             </div>
 
