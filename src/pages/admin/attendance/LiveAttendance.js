@@ -1,12 +1,25 @@
 import AttendanceFeed from "../../../components/AttendanceFeed";
+import { useState, useEffect } from "react";
 
 const LiveAttendance = () => {
-  const recentAttendance = [
-    { student: "John Doe", status: "Present", time: "08:30 AM" },
-    { student: "Jane Smith", status: "Absent", time: "08:35 AM" },
-    { student: "Mark Lee", status: "Present", time: "08:40 AM" },
-  ];
+  const [recentAttendance, setRecentAttendance] = useState([]);
 
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/attendance/students');
+        const data = await response.json();
+        setRecentAttendance(data);
+      } catch (error) {
+        console.error("Error fetching attendance:", error);
+      }
+    };
+
+    fetchAttendance();
+  }, []);
+
+
+  
   return (
     <div className="live-attendance-page">
       <div className="page-header">
@@ -19,6 +32,6 @@ const LiveAttendance = () => {
       </div>
     </div>
   );
-};
+}
 
 export default LiveAttendance;
