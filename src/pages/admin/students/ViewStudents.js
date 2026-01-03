@@ -1,16 +1,29 @@
-import AttendanceTable from "../../../components/AttendanceTable";
+import StudentTable from "../../../components/StudentTable";
+import { useState, useEffect } from "react";
+
 
 const ViewStudents = () => {
-  const students = [
-    { name: "John Doe", regNo: "STD001", date: "2025-12-28", status: "Present" },
-    { name: "Jane Smith", regNo: "STD002", date: "2025-12-28", status: "Absent" },
-    { name: "Mark Lee", regNo: "STD003", date: "2025-12-28", status: "Present" },
-  ];
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/students');
+        const data = await response.json();
+        setStudents(data);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+
+    fetchStudents();
+  }, []);
 
   return (
     <div>
       <h2>View Students</h2>
-      <AttendanceTable data={students} />
+      <StudentTable data={students} />
     </div>
   );
 };

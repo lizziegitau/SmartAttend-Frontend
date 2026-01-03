@@ -1,4 +1,7 @@
+import { formatDate } from '../utils/dateUtils';
+
 const AttendanceFeed = ({ records = [] }) => {
+
   return (
     <div className="attendance-feed">
       <div className="feed-header">
@@ -12,8 +15,8 @@ const AttendanceFeed = ({ records = [] }) => {
         records.map((r, i) => (
           <div key={i} className="feed-item">
             <div className="feed-left">
-              <span className="student-name">{r.student}</span>
-              <span className="feed-time">{r.time}</span>
+              <span className="student-name">{r.student_name}</span>
+              <span className="feed-time">{formatDate(r.created_at)}</span>
             </div>
 
             <span

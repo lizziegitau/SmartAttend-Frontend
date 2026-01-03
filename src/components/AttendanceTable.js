@@ -1,3 +1,5 @@
+import { formatDate } from '../utils/dateUtils';
+
 const AttendanceTable = ({ data = [] }) => {
   return (
     <div className="attendance-table-wrapper">
@@ -26,9 +28,9 @@ const AttendanceTable = ({ data = [] }) => {
           ) : (
             data.map((row, i) => (
               <tr key={i}>
-                <td className="student-cell">{row.name}</td>
-                <td className="reg-cell">{row.regNo}</td>
-                <td className="date-cell">{row.date}</td>
+                <td className="student-cell">{row.student_name}</td>
+                <td className="reg-cell">{row.registration_number}</td>
+                <td className="date-cell">{formatDate(row.created_at)}</td>
                 <td>
                   <span
                     className={`status-pill ${

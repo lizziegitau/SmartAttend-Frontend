@@ -1555,7 +1555,7 @@ body {
   color: #374151;
 }
 
-.input-group input {
+.input-group input, select {
   padding: 10px 14px;
   border-radius: 6px;
   border: 1px solid #d1d5db;

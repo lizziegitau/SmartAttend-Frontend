@@ -1,11 +1,37 @@
 import React from "react";
+import { useState, useEffect } from "react";
+
 
 const DailyReport = () => {
-  const report = {
-    total: 120,
-    present: 110,
-    absent: 10,
-  };
+  const [report, setReport] = useState({
+    total_students: 0,
+    present_today: 0,
+    absent_today: 0
+  });
+  useEffect(() => {
+    const fetchReport = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://localhost:5000/api/admin/attendance-overview", {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        const data = await response.json();
+        setReport({
+          total_students: data.total_students,
+          present_today: data.present_today,
+          absent_today: data.absent_today
+        });
+      } catch (error) {
+        console.error("Error fetching daily report data:", error);
+      }   
+    };
+
+    fetchReport();
+  }, []); 
+
 
   return (
     <div className="daily-report-page">
@@ -16,15 +42,15 @@ const DailyReport = () => {
 
       <div className="stats-grid">
         <div className="report-card bg-blue">
-          <h3>{report.total}</h3>
+          <h3>{report.total_students}</h3>
           <p>Total Students</p>
         </div>
         <div className="report-card bg-green">
-          <h3>{report.present}</h3>
+          <h3>{report.present_today}</h3>
           <p>Present</p>
         </div>
         <div className="report-card bg-red">
-          <h3>{report.absent}</h3>
+          <h3>{report.absent_today}</h3>
           <p>Absent</p>
         </div>
       </div>
@@ -32,10 +58,10 @@ const DailyReport = () => {
       <div className="report-summary">
         <h3>Summary</h3>
         <ul>
-          <li><span className="badge present">Present: {report.present}</span></li>
-          <li><span className="badge absent">Absent: {report.absent}</span></li>
+          <li><span className="badge present">Present: {report.present_today}</span></li>
+          <li><span className="badge absent">Absent: {report.absent_today}</span></li>
           <li><span className="badge average">
-            Attendance Rate: {((report.present / report.total) * 100).toFixed(1)}%
+            Attendance Rate: {((report.present_today / report.total_students) * 100).toFixed(1)}%
           </span></li>
         </ul>
       </div>
