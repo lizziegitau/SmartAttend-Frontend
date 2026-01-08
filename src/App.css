@@ -636,12 +636,19 @@
 /* ===============================
    CHILD CARD CONTAINER
 ================================ */
+.children-cards {
+  display: flex;           /* use flex layout */
+  flex-wrap: wrap;         /* wrap to next line if not enough space */
+  gap: 20px;               /* spacing between cards */
+  justify-content: flex-start; /* align cards to the start */
+}
+
 .child-card {
   background: #ffffff;
   border-radius: 14px;
   padding: 20px;
   width: 100%;
-  max-width: 320px;
+  max-width: 300px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
@@ -1157,6 +1164,11 @@ body {
   border-color: #3b82f6;
 }
 
+.parent-dashboard{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 /* CAMERA SECTION */
 .camera-section {
   position: relative;

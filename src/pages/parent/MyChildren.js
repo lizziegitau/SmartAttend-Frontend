@@ -1,17 +1,37 @@
 import ChildCard from "../../components/ChildCard";
+import { useState, useEffect } from "react";
+
 
 const MyChildren = () => {
-  const children = [
-    { name: "John Doe", regNo: "STD001", attendancePercent: 95 },
-    { name: "Jane Smith", regNo: "STD002", attendancePercent: 88 },
-  ];
+  const [children, setChildren] = useState([]);
+  useEffect(() => {
+    const fetchChildren = async () => {
+      try { 
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/users/my-children', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });  
+        const data = await response.json();
+        setChildren(data.children || []);
+      } catch (error) {
+        console.error("Error fetching children data:", error);
+      }
+    };
+    fetchChildren();
+  }, []);
+
+  const [data, setData] = useState([]);
+
+  
 
   return (
     <div>
       <h2>My Children</h2>
-      <div className="children-grid">
-        {children.map((c, i) => (
-          <ChildCard key={i} {...c} />
+      <div className="children-cards">
+        {children.map((c) => (
+          <ChildCard key={c.student_id} {...c} />
         ))}
       </div>
     </div>
