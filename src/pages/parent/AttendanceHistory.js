@@ -1,10 +1,28 @@
 import AttendanceTable from "../../components/AttendanceTable";
+import { useState, useEffect } from "react";
 
 const AttendanceHistory = () => {
-  const data = [
-    { name: "John Doe", regNo: "STD001", date: "2025-12-28", status: "Present" },
-    { name: "Jane Smith", regNo: "STD002", date: "2025-12-28", status: "Absent" },
-  ];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/attendance/my-children-attendance', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        setData(data.attendance_records || []);
+      } catch (error) {
+        console.error("Error fetching attendance history:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   return (
     <div>

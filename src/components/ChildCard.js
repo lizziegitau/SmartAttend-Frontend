@@ -1,30 +1,31 @@
-const ChildCard = ({ name, regNo, attendancePercent }) => {
+const ChildCard = ({ full_name, registration_number, attendance_rate }) => {
+  const rate = parseFloat(attendance_rate) || 0; // convert string to number
   const attendanceLevel =
-    attendancePercent >= 80
+    rate >= 80
       ? 'good'
-      : attendancePercent >= 60
+      : rate >= 60
       ? 'average'
-      : 'poor'
+      : 'poor';
 
   return (
     <div className="child-card">
       <div className="child-card-header">
-        <h3 className="child-name">{name}</h3>
+        <h3 className="child-name">{full_name}</h3>
         <span className={`attendance-badge ${attendanceLevel}`}>
-          {attendancePercent}%
+          {rate}%
         </span>
       </div>
 
       <div className="child-card-body">
         <div className="info-row">
           <span className="label">Registration No</span>
-          <span className="value">{regNo}</span>
+          <span className="value">{registration_number}</span>
         </div>
 
         <div className="info-row">
           <span className="label">Attendance Rate</span>
           <span className={`value ${attendanceLevel}`}>
-            {attendancePercent}% ({attendanceLevel})
+            {rate}% ({attendanceLevel})
           </span>
         </div>
       </div>
@@ -32,4 +33,4 @@ const ChildCard = ({ name, regNo, attendancePercent }) => {
   )
 }
 
-export default ChildCard
+export default ChildCard;
