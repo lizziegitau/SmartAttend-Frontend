@@ -54,7 +54,9 @@ const MonthlyReport = () => {
           <p>Total Students</p>
         </div>
         <div className="report-card bg-yellow">
-          <h3>{((report.average_attendance_rate) * 100).toFixed(1)}%</h3>
+          {/* <h3>{((report.average_attendance_rate) * 100).toFixed(1)}%</h3> */}
+          <h3>{parseFloat(report.average_attendance_rate).toFixed(1)}%</h3>
+
           <p>Average Attendance</p>
         </div>
         <div className="report-card bg-green">
@@ -73,7 +75,13 @@ const MonthlyReport = () => {
           <li>span</li>
           <li><span className="badge present">Present: {report.total_present}</span></li>
           <li><span className="badge absent">Absent: {report.total_absent}</span></li>
-          <li><span className="badge average">Average Attendance: {((report.average_attendance_rate) * 100).toFixed(1)}%</span></li>
+          {/* <li><span className="badge average">Average Attendance: {((report.average_attendance_rate) * 100).toFixed(1)}%</span></li> */}
+          <li>
+            <span className="badge average">
+              Average Attendance: {parseFloat(report.average_attendance_rate).toFixed(1)}%
+            </span>
+          </li>
+
         </ul>
       </div>
     </div>
