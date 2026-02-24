@@ -10,6 +10,7 @@ const RegisterStudent = () => {
 
   const [parents, setParents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const parentsArray = Array.isArray(parents) ? parents : [];
 
   // Fetch parents for admin
   useEffect(() => {
@@ -130,7 +131,7 @@ const RegisterStudent = () => {
             required
           >
             <option value="">Select Parent</option>
-            {parents.map((parent) => (
+            {parentsArray.map((parent) => (
               <option key={parent.id} value={parent.id}>
                 {parent.name}
               </option>
